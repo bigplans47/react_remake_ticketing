@@ -1,4 +1,6 @@
 import React from 'react';
+import ConfirmationQuestions from './ConfirmationQuestions';
+import NewTicketForm from './NewTicketForm';
 
 class NewTicketControl extends React.Component {
 
@@ -7,17 +9,24 @@ class NewTicketControl extends React.Component {
     this.state = {
       formVisibleOnPage: false
     };
+    this.handleTroubleshootingConfirmation = this.handleTroubleshootingConfirmation.bind(this);
   }
 
-  handleClick(){
-    console.log("hey you clicked me, i dont have code to change my state but will soon have code for this");
+  handleTroubleshootingConfirmation(){
+    this.setState({formVisibleOnPage: true});
   }
-
   render(){
+    let currentlyVisibleContent = null;
+    if (this.state.formVisibleOnPage) {
+      currentlyVisibleContent = <NewTicketForm />;
+    } else {
+      currentlyVisibleContent = <ConfirmationQuestions onTroubleshootingConfirmation={this.handleTroubleshootingConfirmation}/>;
+    }
     return (
       <div>
-        <p>This is the NewTicketControl component!</p>
-        <strong onClick={this.handleClick}>Click me to change my state!</strong>
+      {/* <div onClick={this.handleTroubleshootingConfirmation}> */}
+      {/* why is line 28 using curly brakcet? */}
+        {currentlyVisibleContent}
       </div>
     );
   }
