@@ -1,20 +1,36 @@
 import ticketList from './../../src/reducers/ticket-list-reducer';
-import constants from './../../src/constants';
+import c from './../../src/constants';
 
 describe("Ticket list reducer", () => {
+  let action;
+  const ticketInfo = {
+    names: [
+      'Ryan',
+      'Aimen'
+    ],
+    location: "4b",
+    description: "jest is beinga diva and wont wok well with webpack",
+    timeOpened: 1500000000000,
+    id: 0
+  };
 
-  test('should return equivilant state if no action type is recognized', () => {
-    expect(ticketList([], { type: null})).toEqual([]);
+  test('should return equivalent state if no action type is recognized', () => {
+    action = {type: null };
+    expect(ticketList([], action)).toEqual([]);
   });
 
-  test('imported value should match action type string', () => {
-    expect(constants.ADD_TICKET).toEqual('testing testing 123');
+  test('should add a ticket to list array', () => {
+    const { names, location, description, timeOpened, id} = ticketInfo;
+    action = {
+      type: c.ADD_TICKET,
+      names: names,
+      location: location,
+      description: description,
+      timeOpened: timeOpened,
+      id: id
+    };
+    const futureState = [ ticketInfo ];
+    expect(ticketList([], action)).toEqual([ ticketInfo]);
   });
-
-
-  // test('temporary dummy test: two plus two is four', () => {
-  //   expect(2+2).toBe(4);
-  // });
-
-
+  
 });
